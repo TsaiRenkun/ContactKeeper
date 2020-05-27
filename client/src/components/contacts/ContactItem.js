@@ -1,12 +1,21 @@
-import React from "react";
-import PropTypes from 'prop-types'
-import ContactState from "../../context/contact/ContactState";
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import ContactContext from "../../context/contact/contactContext";
 
 const ContactItem = ({ contact }) => {
+  const contactContext = useContext(ContactContext);
+  const { deleteContact, setCurrent, clearCurrent } = contactContext;
+
   const { id, name, email, phone, type } = contact;
 
+  const onDelete = () => {
+    console.log("clicked" , id)
+    clearCurrent();
+    deleteContact(id);
+  };
+
   return (
-    <div className="card bg-light">
+    <div className="card bg-light" key={id}>
       <h3 className="text-primary text-left">
         {name}{" "}
         <span
@@ -16,7 +25,8 @@ const ContactItem = ({ contact }) => {
             (type === "professional" ? "badge-success" : "badge-primary")
           }
         >
-          {type.charAt(0).toUpperCase() + type.slice(1)}
+          {" "}
+          {type}
         </span>
       </h3>
       <ul className="list">
@@ -30,17 +40,19 @@ const ContactItem = ({ contact }) => {
             <i className="fas fa-phone"> {phone} </i>
           </li>
         )}
-        <p>
-          <button className="btn btn-dark btn-sm">Edit</button>
-          <button className="btn btn-danger btn-sm">Delete</button>
-        </p>
       </ul>
+      <p>
+        <button className="btn btn-dark btn-sm" onClick={()=>setCurrent(contact)}>Edit</button>
+        <button className="btn btn-danger btn-sm" onClick={onDelete}>
+          Delete
+        </button>
+      </p>
     </div>
   );
 };
 
 ContactItem.propTypes = {
-    contact: PropTypes.object.isRequired,
-}
+  contact: PropTypes.object.isRequired,
+};
 
 export default ContactItem;
