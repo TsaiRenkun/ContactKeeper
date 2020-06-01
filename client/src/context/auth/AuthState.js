@@ -15,6 +15,7 @@ import {
 const AuthState = (props) => {
   const initialState = {
       token: localStorage.getItem('token'),
+      user:null,
       isAuthenticated: null,
       loading: true,
       error:null
@@ -32,7 +33,13 @@ const AuthState = (props) => {
 
   // Clear Errors
 
-  return <AuthContext.Provider value={{}}>
+  return <AuthContext.Provider value={{
+      token: state.token,
+      isAuthenticated: state.isAuthenticated,
+      loading: state.loading,
+      user: state.user,
+      error: state.error
+  }}>
       {props.childer}
   </AuthContext.Provider>;
 };
