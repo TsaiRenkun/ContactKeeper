@@ -6,16 +6,15 @@ const ContactItem = ({ contact }) => {
   const contactContext = useContext(ContactContext);
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
-  const { id, name, email, phone, type } = contact;
+  const { _id, name, email, phone, type } = contact;
 
   const onDelete = () => {
-    console.log("clicked" , id)
+    deleteContact(_id);
     clearCurrent();
-    deleteContact(id);
   };
 
   return (
-    <div className="card bg-light" key={id}>
+    <div className="card bg-light" key={_id}>
       <h3 className="text-primary text-left">
         {name}{" "}
         <span
