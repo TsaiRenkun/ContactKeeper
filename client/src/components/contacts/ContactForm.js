@@ -55,10 +55,11 @@ const ContactForm = () => {
       </h2>
       <input
         type="text"
-        placeholder="Eame"
+        placeholder="Name"
         name="name"
         value={name}
         onChange={onChange}
+        required
       />
       <input
         type="email"
